@@ -17,6 +17,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/medicos")
 public class MedicoController {
+
   @Autowired
   private MedicoRespository medicoRespository;
 
@@ -37,7 +38,9 @@ public class MedicoController {
   }
 
   @GetMapping
-  public ResponseEntity<Page<DatosListadoMedicos>> listadoMedicos(@PageableDefault(size = 5, sort = "nombre") Pageable paginacion) {
+  public ResponseEntity<Page<DatosListadoMedicos>> listadoMedicos(
+    @PageableDefault(size = 5, sort = "nombre") Pageable paginacion
+  ) {
     //return medicoRespository.findAll(paginacion).map(DatosListadoMedicos::new);
     return ResponseEntity.ok( medicoRespository.findByActivoTrue(paginacion).map(DatosListadoMedicos::new));
   }
