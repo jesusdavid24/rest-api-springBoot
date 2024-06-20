@@ -3,6 +3,7 @@ package med.voll.api.controller;
 import jakarta.validation.Valid;
 import med.voll.api.domain.consulta.AgendaDeConsultaService;
 import med.voll.api.domain.consulta.DatosAgendarConsulta;
+import med.voll.api.domain.consulta.DatosCancelamientoConsulta;
 import med.voll.api.domain.consulta.DatosDetalleConsulta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +25,12 @@ public class ConsultaController {
     var response = service.agendar(datosAgendarConsulta);
 
     return ResponseEntity.ok(response);
+  }
+
+  @DeleteMapping
+  @Transactional
+  public ResponseEntity eliminarConsulta(@RequestBody @Valid DatosCancelamientoConsulta datosCancelamientoConsulta) {
+   service.cancelar(datosCancelamientoConsulta);
+   return  ResponseEntity.noContent().build();
   }
 }
